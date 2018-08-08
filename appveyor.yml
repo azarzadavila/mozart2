@@ -1,7 +1,7 @@
 version: 2.0.0-beta.1-{branch}+{build}
 image: Visual Studio 2015
 environment:
-    BOOST_ROOT: C:\Libraries\boost
+    BOOST_ROOT: C:\Libraries\boost_1_67_0
 
 install:
     - 'git submodule update --init'
@@ -32,11 +32,8 @@ build_script:
     - make install
 
     # build boost
-    - mkdir %BOOST_ROOT%
     - cd %BOOST_ROOT%
-    - wget -O boost-release.zip https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.zip
-    - 7z e boost-release.zip -y
-    - .\bootstrap.sh gcc
+    - call bootstrap.bat gcc
     - cat bootstrap.log
     - .\b2 toolset=gcc variant=release --with-thread --with-system --with-random --with-filesystem --with-program_options
 
@@ -47,9 +44,9 @@ build_script:
 
     # download missing libs
     - cd C:\projects\mozart2\distrib\windows
-    - wget -O libstdc++-6.dll https://www.dllme.com/dll/download/13223/libstdc++-6.dll
-    - wget -O libwinpthread-1.dll https://www.dllme.com/dll/download/26290/libwinpthread-1.dll
-    - wget -O libgcc_s_seh-1.dll https://www.dllme.com/dll/download/33250/libgcc_s_seh-1.dll
+    - cp msys64\mingw64\bin\libstdc++-6.dll libstdc++-6.dll
+    - cp msys64\mingw64\bin\libwinpthread-1.dll libwinpthread-1.dll
+    - cp msys64\mingw64\bin\libgcc_s_seh-1.dll libgcc_s_seh-1.dll 
 
     # build mozart2
     - mkdir C:\projects\mozart2\build
