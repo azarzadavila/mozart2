@@ -33,8 +33,8 @@ build_script:
 
     # build boost
     - mkdir %BOOST_ROOT%
-    - wget -O %BOOST_ROOT%/boost-release.zip https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.zip
     - cd %BOOST_ROOT%
+    - wget -O %BOOST_ROOT%/boost-release.zip https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.zip
     - unzip boost-release.zip
     - call bootstrap.bat gcc
     - cat bootstrap.log
