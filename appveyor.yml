@@ -36,7 +36,7 @@ build_script:
     - cd %BOOST_ROOT%
     - wget -O boost-release.zip https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.zip
     - 7z e boost-release.zip -y
-    - call bootstrap.bat gcc
+    - ./bootstrap.sh gcc
     - cat bootstrap.log
     - .\b2 toolset=gcc variant=release --with-thread --with-system --with-random --with-filesystem --with-program_options
 
