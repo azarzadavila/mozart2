@@ -39,8 +39,6 @@ if(MINGW)
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-format -Wno-format-extra-args")
   set(CMAKE_CXX_STANDARD_LIBRARIES "-static -static-libgcc -static-libstdc++ -lwsock32 -lws2_32 ${CMAKE_CSS_STANDARD_LIBRARIES}")
-  #Adding Static libraries for Windows
-  target_link_libraries (installer -static gcc stdc++ winpthread -dynamic)
   # Check for gcc target architecture
   execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpmachine OUTPUT_VARIABLE GCC_ARCH)
   string(STRIP "${GCC_ARCH}" GCC_ARCH_TRIPLE)
@@ -187,6 +185,8 @@ if(WIN32)
                       COMMAND ${CMAKE_MAKE_PROGRAM} install
                       COMMAND ${ISS_COMPILER} "${CMAKE_CURRENT_BINARY_DIR}/distrib/windows/MozartSetup.iss"
                       VERBATIM)
+    #Adding Static libraries for Windows
+    target_link_libraries (installer -static gcc stdc++ winpthread -dynamic)
   endif()
 endif()
 
