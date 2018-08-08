@@ -17,3 +17,6 @@
 
 ; Target architecture can be x86 and/or x64
 #define TargetArch "${MOZART_PROP_PLATFORM_ARCH}"
+
+; Adding Missing libs
+#define LibFolder "${CMAKE_SOURCE_DIR}/distrib/windows"
