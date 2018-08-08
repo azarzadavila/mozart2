@@ -51,8 +51,8 @@ build_script:
     # build mozart2
     - mkdir C:\projects\mozart2\build
     - cd C:\projects\mozart2\build
-    - cmake.exe -DCMAKE_BUILD_TYPE=Release -G "MSYS Makefiles" -DCMAKE_PREFIX_PATH=C:/tcltk -DISS_INCLUDE_TCL=ON -DISS_INCLUDE_EMACS=ON -DCMAKE_CXX_COMPILER_ARCHITECTURE_ID=x64 -DCMAKE_INSTALL_PREFIX=C:/projects/mozart2/install ..
-    - cmake.exe -DCMAKE_BUILD_TYPE=Release -G "MSYS Makefiles" -DCMAKE_PREFIX_PATH=C:/tcltk -DISS_INCLUDE_TCL=ON -DISS_INCLUDE_EMACS=ON -DCMAKE_CXX_COMPILER_ARCHITECTURE_ID=x64 -DCMAKE_INSTALL_PREFIX=D:/unif/job/mozart2/install ..
+    - cmake.exe -DCMAKE_BUILD_TYPE=Release -G "MSYS Makefiles" -DCMAKE_PREFIX_PATH=C:/tcltk -DISS_INCLUDE_TCL=ON -DISS_INCLUDE_EMACS=ON -DCMAKE_CXX_COMPILER_ARCHITECTURE_ID=x64 -DBOOST_ROOT="%BOOST_ROOT%" -DCMAKE_INSTALL_PREFIX=C:/projects/mozart2/install ..
+    - cmake.exe -DCMAKE_BUILD_TYPE=Release -G "MSYS Makefiles" -DCMAKE_PREFIX_PATH=C:/tcltk -DISS_INCLUDE_TCL=ON -DISS_INCLUDE_EMACS=ON -DCMAKE_CXX_COMPILER_ARCHITECTURE_ID=x64 -DBOOST_ROOT="%BOOST_ROOT%" -DCMAKE_INSTALL_PREFIX=D:/unif/job/mozart2/install ..
     - cmake --build . --target installer -- VERBOSE=1
 
 artifacts:
