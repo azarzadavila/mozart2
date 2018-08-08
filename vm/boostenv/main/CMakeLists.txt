@@ -110,3 +110,4 @@ include_directories(${GENERATED_BOOSTSOURCES_DIR})
 
 add_library(mozartvmboost boostvm.cc boostenvmodules.cc)
 add_dependencies(mozartvmboost genboostsources)
+target_link_libraries(mozartvmboost bcrypt)

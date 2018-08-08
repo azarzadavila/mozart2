@@ -1,7 +1,7 @@
 version: 2.0.0-beta.1-{branch}+{build}
 image: Visual Studio 2015
 environment:
-    BOOST_ROOT: C:\Libraries\boost_1_65_1
+    BOOST_ROOT: C:\Libraries\boost
 
 install:
     - 'git submodule update --init'
@@ -9,9 +9,9 @@ install:
     - ps: '$env:path = "C:\msys64\mingw64\bin;C:\msys64\usr\bin\;" + $env:path'
 
 build_script:
-    #- set SOURCES="https://github.com/layus/mozart2/releases/download/v2.0.0-beta.1/mozart2-2.0.0-beta.1-Source.zip"
-    #- appveyor DownloadFile "%SOURCES%" -FileName mozart2.zip
-    #- 7z x mozart2.zip -oC:\projects
+    - set SOURCES="https://github.com/layus/mozart2/releases/download/v2.0.0-beta.1/mozart2-2.0.0-beta.1-Source.zip"
+    - appveyor DownloadFile "%SOURCES%" -FileName mozart2.zip
+    - 7z x mozart2.zip -oC:\projects
     
     # uninstall tcl/tk
     - pacman -Rdd --noconfirm mingw-w64-x86_64-tcl mingw-w64-x86_64-tk
@@ -35,19 +35,29 @@ build_script:
     - make install
 
     # build boost
+    - mkdir %BOOST_ROOT%
+    - wget -O %BOOST_ROOT%/boost-release.zip https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.zip
     - cd %BOOST_ROOT%
+    - tar xf
     - call bootstrap.bat gcc
     - cat bootstrap.log
     - .\b2 toolset=gcc variant=release --with-thread --with-system --with-random --with-filesystem --with-program_options
 
     # install emacs
     # We cannot use $(pacman -S *-emacs because ISS packs C:/.../emacs.exe/../* which would include all of msys)
+    # It still seems to include all of chocolatey but it is much lighter than msys
     - choco install emacs64
+
+    # download missing libs
+    - cd C:\projects\mozart2\distrib\windows
+    - wget -O libstdc++-6.dll https://www.dllme.com/dll/download/13223/libstdc++-6.dll
+    - wget -O libwinpthread-1.dll https://www.dllme.com/dll/download/26290/libwinpthread-1.dll
+    - wget -O libgcc_s_seh-1.dll https://www.dllme.com/dll/download/33250/libgcc_s_seh-1.dll
 
     # build mozart2
     - mkdir C:\projects\mozart2\build
     - cd C:\projects\mozart2\build
-    - cmake -DCMAKE_BUILD_TYPE=Release -G"MSYS Makefiles" -DCMAKE_PREFIX_PATH=C:/tcltk -DBOOST_ROOT="%BOOST_ROOT%" -DISS_INCLUDE_TCL=ON -DISS_INCLUDE_EMACS=ON C:\projects\mozart2
+    - cmake.exe -DCMAKE_BUILD_TYPE=Release -G "MSYS Makefiles" -DCMAKE_PREFIX_PATH=C:/tcltk -DISS_INCLUDE_TCL=ON -DISS_INCLUDE_EMACS=ON -DCMAKE_CXX_COMPILER_ARCHITECTURE_ID=x64 -DCMAKE_INSTALL_PREFIX=C:/projects/mozart2/install ..
     - cmake --build . --target installer -- VERBOSE=1
 
 artifacts:
