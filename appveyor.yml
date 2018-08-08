@@ -1,7 +1,7 @@
 version: 2.0.0-beta.1-{branch}+{build}
 image: Visual Studio 2015
 environment:
-    BOOST_ROOT: C:\Libraries\boost_1_65_1
+    BOOST_ROOT: C:\Libraries\boost_1_67_0
 
 install:
     - 'git submodule update --init'
