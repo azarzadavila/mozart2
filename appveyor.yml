@@ -9,9 +9,6 @@ install:
     - ps: '$env:path = "C:\msys64\mingw64\bin;C:\msys64\usr\bin\;" + $env:path'
 
 build_script:
-    #- set SOURCES="https://github.com/layus/mozart2/releases/download/v2.0.0-beta.1/mozart2-2.0.0-beta.1-Source.zip"
-    #- appveyor DownloadFile "%SOURCES%" -FileName mozart2.zip
-    #- 7z x mozart2.zip -oC:\projects
     
     # uninstall tcl/tk
     - pacman -Rdd --noconfirm mingw-w64-x86_64-tcl mingw-w64-x86_64-tk
