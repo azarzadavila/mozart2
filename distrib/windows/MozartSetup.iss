@@ -43,6 +43,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "{#MozartFolder}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs; Components: main
+Source:"{#LibFolder}\*"; DestDir:"{app}\bin"; Flags: ignoreversion recursesubdirs; Components: main
 #if TclIncluded == "ON"
 Source: "{#TclFolder}\bin\*"; DestDir: "{app}\bin"; Flags: ignoreversion recursesubdirs; Components: main
 Source: "{#TclFolder}\lib\*"; DestDir: "{app}\lib"; Flags: ignoreversion recursesubdirs; Components: main
