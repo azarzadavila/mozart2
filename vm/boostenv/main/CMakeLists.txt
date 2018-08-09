@@ -20,8 +20,6 @@ if(WIN32)
   # Boost requires this
   add_definitions(-D_WIN32_WINNT=0x0501)
   set(MOZART_GENERATOR_FLAGS "${MOZART_GENERATOR_FLAGS}" -D_WIN32_WINNT=0x0501)
-  
-  target_link_libraries(mozartvmboost bcrypt)
 endif()
 
 if(MINGW)
