@@ -59,6 +59,8 @@ if(MINGW)
       enable_language(RC)
         set(CMAKE_RC_COMPILE_OBJECT
 	    "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
+  # Linking Static Libs
+    set(CMAKE_EXE_LINKER_FLAGS -static)
 endif()
 
 # Some configuration
@@ -186,7 +188,7 @@ if(WIN32)
                       COMMAND ${ISS_COMPILER} "${CMAKE_CURRENT_BINARY_DIR}/distrib/windows/MozartSetup.iss"
                       VERBATIM)
     #Adding Static libraries for Windows
-    target_link_libraries (installer -static gcc stdc++ winpthread -dynamic)
+    #target_link_libraries (installer -static gcc stdc++ winpthread -dynamic)
   endif()
 endif()
 
