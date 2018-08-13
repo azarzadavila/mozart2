@@ -31,6 +31,7 @@ before_script:
   - apt list --installed
   - env
   # Fix clang cmake dirs
+  - chmod +x clang-inst.sh
   - ./clang-inst.sh
 
 script:
