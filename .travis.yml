@@ -1,26 +1,48 @@
 language: generic
 dist: trusty
 sudo: false
-branches:
-  only:
-  - test-gh-pages
-  - "/.*/"
 matrix:
   include:
   - env:
     - V=4.0
     - PREFIX=/usr/lib/llvm-4.0/lib/cmake
     - BIN=/usr/lib/llvm-4.0/bin
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-trusty-4.0
+        packages:
+        - libboost-all-dev
+        - tcl-dev
+        - tk-dev
+        - emacs
+        - clang-4.0
+        - libclang-4.0-dev
+        - llvm-4.0-dev
+        - clang-format-4.0
+        - clang-tidy-4.0
+before_script:
+- apt list --installed
+- env
+- if [ $V == 3.9 ]; then  sudo -E ln -sn /usr/share/llvm-3.9/cmake /usr/lib/llvm-3.9/lib/cmake/clang;     fi
+- if [ $V == 4.0 ]; then  sudo -E ln -sn /usr/share/llvm-4.0/cmake /usr/lib/llvm-4.0/lib/cmake/clang;     fi
+- if [ $V == 4.0 ]; then  sudo -E ln -sn /usr/share/llvm-4.0/cmake /usr/lib/llvm-4.0/lib/cmake/clang-4.0;
+  fi
+- if [ $V == 4.0 ]; then  sudo -E ln -s  /usr/bin/*                /usr/lib/llvm-4.0/bin
+  || true;         fi
 script:
-- echo "Test gh pages"
-- echo "Triggering Build"
-- echo "Travis enable"
+- export SOURCES=$(pwd) && mkdir ../build && cd ../build
+- cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN
+  -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
+- make dist VERBOSE=1
+- make VERBOSE=1
 deploy:
-  provider: pages 
+  provider: pages
   skip-cleanup: true
   keep-history: true
   github-token:
-    secure: XvkD58ABHRBTpheTFAq1ccMcKNyLH4/i9ixYgxUweA8LbXogP6woVFn7UsJLbftEOLOnoKnie9w4W8kK0TMWl+ImBtVbyiK9crN9YPrjJIlSyEl5biMUhBtfLp+N5BIkTzHSmuhTAvRmc49oDWZRqUuGJudnCU/9XClWiK4he4AzurJ8v+u4cWUFGRuGDNqpwiL0w1KrETWoo8v7jgVGzEeNXPG1YPYVtouBV1onhi6SZr8go3TeINrH9YKpY9+R3D44NMI0u9KCn5vDyDHJbioNcokhfG/I5BTo35eXj431dQZ0C4hTAkSUEojRxdLCd+EPRuTyq6fvcqXoMu5bs4aJCTAht1+Z02RK6EiELZaUjQiaR6fZUOsxgeG61fWmEOU079xSCFxqFov2joS70YV4TpfJu0GQznIXLOqbcs8iUtXf90dcg1kjxb/S+68NB3dsRmVfoNLqadqOSnK55Ztc5aqkf+0TDjbxQZj1hvvFffDWMy4Y4Ee2BdlzSsEEf6JUj8THu+5pyuqPiSHJqDKpz3cIcDUxDHwVnK05KsvCiXXPklRU/OOlLJ0xRDSuByMEye9DCkTRFx3CwlJRRzH3XYi8puDaTrW3KeUFsFxVBX67Yez8Aw5eEidthA4dsuxSVUkXnElGjQUWq5FQvfJL08c0baeWv+DrktT2lWk=
+    secure: D9XVrswshnVyqVtIh9hvn6k4buoLQ0EgVH+e4d21PJerTLNh32t/WMQg/xcP+1P8kqvrsAW75iHQmhR2IGnuvFDNMWpaSAdWFrUq/y5o+I/tg8Phvxq0tQEnfhU7xw6ZFSuRKO5JgE8zlJxSgNwd0H2mhvGlV8bxkdB+mz1EmSPFv5Gze9rhNvvUEJGBwE8ylln2us82bsfqk67jRdkZYldtZI36Lj+VBGQqRbp8SkF0DomvzWs4yriwhUmJntNeh3PjXJi9/zUqySbApX2QOnCIlDWYzFEKONv6cQezSIdIWqRIXMuHiMvlVLmGB5nDDx7KEpw2jL9Bac3G6U/t/ZDq8gSIgOz/W9YGsdJzAUu45HOtBhE1BfCxu/0v+cf5NnIvd7v6WC5Nd/y2M8WRjMDyDJtJGWcEKsUuMsMsbSGJKU5wHUDH4hW5BZwfPDDwXvL8bMTzeQnSTU4xVgnEm2G/ET8/ZkF7ObTs/RoYPf2u1NVZ66lmu2aR2Csh8DRNqrMfQmKla0qQmmIpaGlvU883+3XNl2jbaU156EJkFXGIXXn3HlNx2fBJwjH7pW642zprzpvgFeTzCvl1d5tiIE/eyJx02qoXM1xEp5fpZ5Gwn6KqmZmToe4wFs7fqFYbhm29TwkhRZHOqbozX8QLvFQnqWolAyJoIy1tUKT0QXs=
   on:
     repo: azarzadavila/mozart2
-    branch: test-gh-pages
+    branch: gh-gensources

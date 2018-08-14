@@ -197,8 +197,6 @@ add_custom_target(
     DEPENDS ${TEST_FUNCTORS_OZF})
 # Run the tests when "make test" is executed
 if(BUILD_TESTING)
-    # running vmtest (gtest)
-    add_test("vmtest" "${CMAKE_CURRENT_BINARY_DIR}/../vm/vm/test/vmtest")
     # running tests in platform-test
     if(NOT WIN32)
       set(OZEMULATOR "${CMAKE_CURRENT_BINARY_DIR}/../boosthost/emulator/ozemulator")
@@ -210,5 +208,4 @@ if(BUILD_TESTING)
         set(TEST_FUNCTORS_OZF ${TEST_FUNCTORS_OZF} "${FUNCTOR_OZF}")
         add_test(${FUNCTOR} ${OZEMULATOR} --home "${MOZART_BUILD_DIR}" "${RUNNER_OZF}" "${FUNCTOR_OZF}")
     endforeach()
-    add_dependencies(check platform-test)
 endif(BUILD_TESTING)

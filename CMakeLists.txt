@@ -10,7 +10,6 @@ message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 project(MOZART CXX)
 
 ENABLE_TESTING()
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
 # Custom CMake modules
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_local ${CMAKE_MODULE_PATH})
@@ -38,8 +37,9 @@ if(MINGW)
       CACHE STRING "Version of GCC in your MinGW installation")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-format -Wno-format-extra-args")
-  #Linking static libs
+  # Linking mingw libs statically
   set(CMAKE_CXX_STANDARD_LIBRARIES "-Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive, -static-libgcc -static-libstdc++ -lwsock32 -lws2_32 ${CMAKE_CSS_STANDARD_LIBRARIES}")
+
   # Check for gcc target architecture
   execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpmachine OUTPUT_VARIABLE GCC_ARCH)
   string(STRIP "${GCC_ARCH}" GCC_ARCH_TRIPLE)
@@ -186,8 +186,6 @@ if(WIN32)
                       COMMAND ${CMAKE_MAKE_PROGRAM} install
                       COMMAND ${ISS_COMPILER} "${CMAKE_CURRENT_BINARY_DIR}/distrib/windows/MozartSetup.iss"
                       VERBATIM)
-    #Adding Static libraries for Windows
-    #target_link_libraries (installer -static gcc stdc++ winpthread -dynamic)
   endif()
 endif()
 
