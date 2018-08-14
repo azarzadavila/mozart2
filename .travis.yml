@@ -1,6 +1,10 @@
 language: generic
 dist: trusty
 sudo: false
+branches:
+  only:
+   - test-gh-pages
+   - /.*/
 matrix:
   include:
   - env:
