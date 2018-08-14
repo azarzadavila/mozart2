@@ -8,8 +8,10 @@ matrix:
     - PREFIX=/usr/lib/llvm-4.0/lib/cmake
     - BIN=/usr/lib/llvm-4.0/bin
 script:
-- echo "Test gh pages"
-- echo "Triggering Build"
+  - echo "Test gh pages"
+  - echo "Triggering Build"
+  - echo "Travis enable"
+
 deploy:
   provider: pages
   skip-cleanup: true
