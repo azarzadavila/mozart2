@@ -3,49 +3,48 @@ dist: trusty
 sudo: false
 matrix:
   include:
-    # Versions before 3.8 are not included nor whitelisted
-
-    # Broken (uses ubuntu's version, not llvm one. {LLVM,Clang}Config.cmake are beyond redemption
-    #- env: [ "V=3.8", "PREFIX=/usr/lib/llvm-3.8" ]
-    #  addons:
-    #    apt:
-    #      sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-3.8" ]
-    #      packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-3.8", "libclang-3.8-dev", "llvm-3.8-dev" ]
-
-    # Broken: Unknown reloaction 0x2a (llvm-3.9 known to be bugged on travis)
-    #- env: [ "V=3.9", "PREFIX=/usr/lib/llvm-3.9/lib/cmake" ]
-    #  addons:
-    #    apt:
-    #      sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-3.9" ]
-    #      packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-3.9", "libclang-3.9-dev", "llvm-3.9-dev" ]
-
-    # Last hope ?
-    # Nope, packaging bugs (see https://groups.google.com/forum/#!msg/linux.debian.bugs.dist/g2S4E-QvmWA/SXLl-bcBAgAJ;context-place=forum/linux.debian.bugs.dist)
-    - env: [ "V=4.0", "PREFIX=/usr/lib/llvm-4.0/lib/cmake", "BIN=/usr/lib/llvm-4.0/bin" ]
+    - env:
+        - V=4.0
+        - PREFIX=/usr/lib/llvm-4.0/lib/cmake
+        - BIN=/usr/lib/llvm-4.0/bin
       addons:
         apt:
-          sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-4.0" ]
-          packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-4.0", "libclang-4.0-dev", "llvm-4.0-dev", "clang-format-4.0", "clang-tidy-4.0" ]
-
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-4.0
+          packages:
+            - libboost-all-dev
+            - tcl-dev
+            - tk-dev
+            - emacs
+            - clang-4.0
+            - libclang-4.0-dev
+            - llvm-4.0-dev
+            - clang-format-4.0
+            - clang-tidy-4.0
 before_script:
   - apt list --installed
   - env
-  # Fix clang cmake dirs
   - chmod +x clang-inst.sh
   - ./clang-inst.sh
-
 script:
   - export SOURCES=$(pwd) && mkdir ../build && cd ../build
-  - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
+  - >-
+    cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False
+    -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
   - make dist VERBOSE=1
   - make VERBOSE=1
   - CTEST_OUTPUT_ON_FAILURE=1 make check
   - make package VERBOSE=1
-
 deploy:
-  provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
-  file: "build/_CPack_Packages/Linux/*"
-  skip_cleanup: true
+  provider: pages
+  skip-cleanup: true
+  keep-history: true
   on:
-    tags: true
+    branch: gtest-travis
+env:
+  global:
+    - secure: >-
+        Xc+LtQi51KG2UxzzC2+hqjVDGrmXJIceRuLmCcj4tE35EH9blShVvY/SKd+IWlFU8VT0BNhK03lUk7vnUx/CDaAlSuDrDyMyOOoINA4BGv6ee7rMtaCxOKmmVsD1sfFlHKN/VuRPWxgJOPl660/zTdqa7utWVTrZUa2Sh+v1cz/MFvwV0UIeqlLsBYPtholN5a/80k22i/G+yHbmL7usHsJj0HmnGQlMaptRDXWam5kcv0g+8lgBUWUecUNtVo5119Wdtvcf45Ex69vL3PJ4bT/osYZ86Wd9HxE/kNixc0miDMdZ9UYECMew4ymql7cDB9zpPgTMKEbk+btIidEBUMBoocZUHpppLv5wZz5J/VuL8gzZb2cICM5u1jqK4lW1q9nYL0rmSwx4wsijMqtVJ9m+zpgS5WMnNuEZ3CuBp0zPkpwAE2ikjVzhmTP8sguJ670bgxAdTz+1t6vTNTNZYt5Y+4SWRhY/dGJryJt5yvH7eE0Qjm13StK7wiL7zm67efxX3OQNJZXGP+rtMI2304tM53MHUd4sjG6GnhaEHK4zEgSCgAKQr7+lk6VOOunSVCimC9CdS5VHSE4a5DCxT1mhORq4k6CDvoWzg/YAmV630WmODG3D/6VCum7RDgZMAUoEyYuWoLB1JOZkhVW+O7bW+A/hr21QFOU+EVW0Bqk=
+    - secure: >-
+        GwwlFVgoLI9pnRpFfGnARXYv2MDv13zj5mmg7+0r2DPe5rN2S6fEfBk8pv7iyoYFc6GF1PeX3Z01Me8lbx9Ubwqtuxvqj0Qw19NAZPN0q3TRaABo2rfhpRD4QP9RCbdXtq+cfOvhNi/D9ULxWINPYFqBfizduJ3rNdPchU3IDrCPuhCXEka+aTXM4R5BGAk5kgle6Q5vlRX7WLffO2q+j0Zv6xRsaVuafy9KgJZJqcRchZTRDIgJzcS7cMCkPrWcY88j6bpUQbRwwhwRBMtrJQbOPSTxEKSg7cgi9s4w3leZQhOr/PdgNLoc7KPt73+Uuus0LBUzz85dEt/0fqZPIppGIW3EIIgyY0vwCXieyHLW0/epDC9HUd1mBW7G5C5GJJzM64R+sVaqRn/17Y5Bk+9SS2NJBc4CYZKRAxmRSE+ODuoGnrL/HR3aCWVPJEzAUjYGd89SLQRM6atj1/XSOSWB05lML+COYfbFNS/JURoC273RuJbOLRrTNOL5ZGkx+fmofIc4YTNn+nCi7gaiqkgUoniZHsrCrSyQr2nXL/nJq1vPvI4ZIff2aqJ85oN0s0+NaZKZ4pr2Lo5px5fdewucz2zA5ng8mRRqIzMymyQxhD3YhV1Uhr+YhMUZcAzAvJoTnsRmi7n5IZfoQAgVY98KHvMtYenYd8qAuaKzMO8=
