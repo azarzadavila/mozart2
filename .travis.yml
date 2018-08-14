@@ -1,0 +1,26 @@
+language: generic
+dist: trusty
+sudo: false
+branches:
+  only:
+  - test-gh-pages
+  - "/.*/"
+matrix:
+  include:
+  - env:
+    - V=4.0
+    - PREFIX=/usr/lib/llvm-4.0/lib/cmake
+    - BIN=/usr/lib/llvm-4.0/bin
+script:
+- echo "Test gh pages"
+- echo "Triggering Build"
+- echo "Travis enable"
+deploy:
+  provider: pages 
+  skip-cleanup: true
+  keep-history: true
+  github-token:
+    secure: XvkD58ABHRBTpheTFAq1ccMcKNyLH4/i9ixYgxUweA8LbXogP6woVFn7UsJLbftEOLOnoKnie9w4W8kK0TMWl+ImBtVbyiK9crN9YPrjJIlSyEl5biMUhBtfLp+N5BIkTzHSmuhTAvRmc49oDWZRqUuGJudnCU/9XClWiK4he4AzurJ8v+u4cWUFGRuGDNqpwiL0w1KrETWoo8v7jgVGzEeNXPG1YPYVtouBV1onhi6SZr8go3TeINrH9YKpY9+R3D44NMI0u9KCn5vDyDHJbioNcokhfG/I5BTo35eXj431dQZ0C4hTAkSUEojRxdLCd+EPRuTyq6fvcqXoMu5bs4aJCTAht1+Z02RK6EiELZaUjQiaR6fZUOsxgeG61fWmEOU079xSCFxqFov2joS70YV4TpfJu0GQznIXLOqbcs8iUtXf90dcg1kjxb/S+68NB3dsRmVfoNLqadqOSnK55Ztc5aqkf+0TDjbxQZj1hvvFffDWMy4Y4Ee2BdlzSsEEf6JUj8THu+5pyuqPiSHJqDKpz3cIcDUxDHwVnK05KsvCiXXPklRU/OOlLJ0xRDSuByMEye9DCkTRFx3CwlJRRzH3XYi8puDaTrW3KeUFsFxVBX67Yez8Aw5eEidthA4dsuxSVUkXnElGjQUWq5FQvfJL08c0baeWv+DrktT2lWk=
+  on:
+    repo: azarzadavila/mozart2
+    branch: test-gh-pages
