@@ -40,3 +40,12 @@ script:
   - make dist VERBOSE=1
   - make VERBOSE=1
   - CTEST_OUTPUT_ON_FAILURE=1 make check
+  - make package VERBOSE=1
+
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file: "build/_CPack_Packages/Linux/*"
+  skip_cleanup: true
+  on:
+    tags: true
