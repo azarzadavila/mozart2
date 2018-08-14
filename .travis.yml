@@ -3,8 +3,8 @@ dist: trusty
 sudo: false
 branches:
   only:
-   - test-gh-pages
-   - /.*/
+  - test-gh-pages
+  - "/.*/"
 matrix:
   include:
   - env:
@@ -12,15 +12,15 @@ matrix:
     - PREFIX=/usr/lib/llvm-4.0/lib/cmake
     - BIN=/usr/lib/llvm-4.0/bin
 script:
-  - echo "Test gh pages"
-  - echo "Triggering Build"
-  - echo "Travis enable"
-
+- echo "Test gh pages"
+- echo "Triggering Build"
+- echo "Travis enable"
 deploy:
-  provider: pages
+  provider: pages 
   skip-cleanup: true
+  keep-history: true
   github-token:
-    secure: MhR6fTj04IEpp3GCdV2ZmGuF87ndaYtGqcaI09KgLWhYE1lE5lMBsFdDjp1tuE+r9Jd1vtF4nMR2z+F+DIXSlCzWpu6cBeEV1xCbMhgN7LLRqC97X4wnXJNoAg0Td1kosuZPpJ6wBF428Jsu0oyhVwwAm7jF2Ag5VvD7phtfmkbRDv3g3ZDI6fsU7b0zv0t9PnspQnkM3FtBuX9ZSYjYGth7Doc+evJ0XRKDQskxHzs46/sFn8ZzxX0A9qO9iVxPIx6uey6ADuPjAecbTu6ySKiEw3YbTqEMvFMIbLQl8EhujUPXjxmyFj3tc6yOQiyedqNPVrE20i4HRvp/sSel6ujrQ4G21vTlrFZUuxQ7iBaaJjfZD3TU+8D/Wi5PSowd0E9QSbLe4Rkryej8Hsb1JB6gUIh/mI2v9ikwuB0E3m5D7Jc9UDVur1xhLzoYvDm2X5DqY2ijycYQ9a3xzpG3yyzaveofWCSQPvOOa59f+e0gH3fZ7/h5/J3yjKVUG4iheP8fyTiqjW/oRA2/9RgHXYv7Fq601kMD4Fu6kTo7uUkELr0yv/7JzQQVLQU0/U/rfE2D5jSoaJqBOcwgLnI5R0kELo7mKQr5AEzMam42YufZmEhYh9qkIFeYDg4bN7+3GXZD0lDLle8iZXxmCuvDzAzfisS1xSJ5wqtyso3g+pc=
+    secure: XvkD58ABHRBTpheTFAq1ccMcKNyLH4/i9ixYgxUweA8LbXogP6woVFn7UsJLbftEOLOnoKnie9w4W8kK0TMWl+ImBtVbyiK9crN9YPrjJIlSyEl5biMUhBtfLp+N5BIkTzHSmuhTAvRmc49oDWZRqUuGJudnCU/9XClWiK4he4AzurJ8v+u4cWUFGRuGDNqpwiL0w1KrETWoo8v7jgVGzEeNXPG1YPYVtouBV1onhi6SZr8go3TeINrH9YKpY9+R3D44NMI0u9KCn5vDyDHJbioNcokhfG/I5BTo35eXj431dQZ0C4hTAkSUEojRxdLCd+EPRuTyq6fvcqXoMu5bs4aJCTAht1+Z02RK6EiELZaUjQiaR6fZUOsxgeG61fWmEOU079xSCFxqFov2joS70YV4TpfJu0GQznIXLOqbcs8iUtXf90dcg1kjxb/S+68NB3dsRmVfoNLqadqOSnK55Ztc5aqkf+0TDjbxQZj1hvvFffDWMy4Y4Ee2BdlzSsEEf6JUj8THu+5pyuqPiSHJqDKpz3cIcDUxDHwVnK05KsvCiXXPklRU/OOlLJ0xRDSuByMEye9DCkTRFx3CwlJRRzH3XYi8puDaTrW3KeUFsFxVBX67Yez8Aw5eEidthA4dsuxSVUkXnElGjQUWq5FQvfJL08c0baeWv+DrktT2lWk=
   on:
     repo: azarzadavila/mozart2
-    branch: test-gh-pages 
+    branch: test-gh-pages
