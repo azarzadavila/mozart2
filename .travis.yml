@@ -38,10 +38,11 @@ script:
 - make dist VERBOSE=1
 - make VERBOSE=1
 deploy:
-  provider: releases
-  api_key:
+  provider: pages
+  skip-cleanup: true
+  keep-history: true
+  github-token:
     secure: D9XVrswshnVyqVtIh9hvn6k4buoLQ0EgVH+e4d21PJerTLNh32t/WMQg/xcP+1P8kqvrsAW75iHQmhR2IGnuvFDNMWpaSAdWFrUq/y5o+I/tg8Phvxq0tQEnfhU7xw6ZFSuRKO5JgE8zlJxSgNwd0H2mhvGlV8bxkdB+mz1EmSPFv5Gze9rhNvvUEJGBwE8ylln2us82bsfqk67jRdkZYldtZI36Lj+VBGQqRbp8SkF0DomvzWs4yriwhUmJntNeh3PjXJi9/zUqySbApX2QOnCIlDWYzFEKONv6cQezSIdIWqRIXMuHiMvlVLmGB5nDDx7KEpw2jL9Bac3G6U/t/ZDq8gSIgOz/W9YGsdJzAUu45HOtBhE1BfCxu/0v+cf5NnIvd7v6WC5Nd/y2M8WRjMDyDJtJGWcEKsUuMsMsbSGJKU5wHUDH4hW5BZwfPDDwXvL8bMTzeQnSTU4xVgnEm2G/ET8/ZkF7ObTs/RoYPf2u1NVZ66lmu2aR2Csh8DRNqrMfQmKla0qQmmIpaGlvU883+3XNl2jbaU156EJkFXGIXXn3HlNx2fBJwjH7pW642zprzpvgFeTzCvl1d5tiIE/eyJx02qoXM1xEp5fpZ5Gwn6KqmZmToe4wFs7fqFYbhm29TwkhRZHOqbozX8QLvFQnqWolAyJoIy1tUKT0QXs=
-  file: "*"
   on:
     repo: azarzadavila/mozart2
     branch: gh-gensources
