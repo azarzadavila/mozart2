@@ -38,7 +38,7 @@ script:
         #  - make package VERBOSE=1
    - echo "Test Deploy"
 deploy:
-  provider: release 
+  provider: releases 
   skip-cleanup: true
   keep-history: true
   file : appveyor.yml
