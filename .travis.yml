@@ -9,6 +9,7 @@ matrix:
     - BIN=/usr/lib/llvm-4.0/bin
 script:
 - echo "Test Deploy"
+- echo "Triggering Build"
 deploy:
   provider: releases
   api_key:
