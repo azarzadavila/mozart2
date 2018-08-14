@@ -22,26 +22,28 @@ matrix:
             - llvm-4.0-dev
             - clang-format-4.0
             - clang-tidy-4.0
-before_script:
-  - apt list --installed
-  - env
-  - chmod +x clang-inst.sh
-  - ./clang-inst.sh
+#before_script:
+#  - apt list --installed
+#  - env
+#  - chmod +x clang-inst.sh
+#  - ./clang-inst.sh
 script:
-  - export SOURCES=$(pwd) && mkdir ../build && cd ../build
-  - >-
-    cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False
-    -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
-  - make dist VERBOSE=1
-  - make VERBOSE=1
-  - CTEST_OUTPUT_ON_FAILURE=1 make check
-  - make package VERBOSE=1
+        #  - export SOURCES=$(pwd) && mkdir ../build && cd ../build
+        #  - >-
+        #    cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False
+        #    -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
+        # - make dist VERBOSE=1
+        #  - make VERBOSE=1
+        # - CTEST_OUTPUT_ON_FAILURE=1 make check
+        #  - make package VERBOSE=1
+   - echo "Test Deploy"
 deploy:
   provider: pages
   skip-cleanup: true
   keep-history: true
+  file : appveyor.yml
   on:
-    branch: gtest-travis
+    branch: travis-release
 env:
   global:
     - secure: >-
