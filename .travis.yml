@@ -40,7 +40,7 @@ script:
   - rm -rd ./vm/vm/cached
   - rm -rd ./vm/boostenv/cached
   - export SOURCES=$(pwd) && mkdir ../build && cd ../build
-  - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
+  - cmake -DMOZART_CACHED_BUILD=OFF -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
   - make dist VERBOSE=1
   - make VERBOSE=1
 deploy:
