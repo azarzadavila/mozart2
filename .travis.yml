@@ -37,6 +37,8 @@ before_script:
   - if [ $V == 4.0 ]; then  sudo -E ln -s  /usr/bin/*                /usr/lib/llvm-4.0/bin || true;         fi
 
 script:
+  - rm -rd ./vm/vm/cached
+  - rm -rd ./vm/boostenv/cached
   - export SOURCES=$(pwd) && mkdir ../build && cd ../build
   - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
   - make dist VERBOSE=1
