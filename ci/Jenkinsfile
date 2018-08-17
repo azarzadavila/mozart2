@@ -12,7 +12,7 @@ pipeline {
 
         stage ('Test Docker') {
             steps {
-		sh 'll'
+		sh 'ls -l'
 		sh 'docker info'
 		sh 'docker run hello-world'
             }
