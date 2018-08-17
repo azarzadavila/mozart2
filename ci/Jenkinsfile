@@ -15,6 +15,7 @@ pipeline {
 		sh 'ls -l'
                 sh 'docker help'
 		sh 'docker --version'
+		sh 'sudo docker info'
                 sh 'docker version'
 		sh 'docker info'
 		sh 'docker run hello-world'
