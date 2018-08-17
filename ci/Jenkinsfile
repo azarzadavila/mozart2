@@ -10,38 +10,9 @@ pipeline {
 
     stages {
 
-        stage ('Generate sources') {
+        stage ('Test Docker') {
             steps {
-		dir ('llvm') {
-                    sh 'curl http://releases.llvm.org/4.0.1/llvm-4.0.1.src.tar.xz | tar xJf - --strip-components=1'
-
-                    dir ('tools/clang') {
-                        sh 'curl http://releases.llvm.org/4.0.1/cfe-4.0.1.src.tar.xz | tar xJf - --strip-components=1'
-                        sh 'export PREFIX=$(pwd)'
-                    }
-                }
-                dir ('llvm-build') {
-                    sh 'cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=`pwd`/../llvm-install ../llvm'
-                    sh 'make -j4'
-                    sh 'make install -j4'
-                }
-                dir ('llvm-install') {
-                    sh 'export PATH=`pwd`/bin:$PATH'
-                }
-                dir('build') {
-                    sh """
-                        cmake "-DCMAKE_BUILD_TYPE=Release" \
-                            "-DMOZART_BOOST_USE_STATIC_LIBS=False" \
-                            "-DCMAKE_PROGRAM_PATH=$WORKSPACE/llvm-install/usr/bin" \
-                            "-DCMAKE_PREFIX_PATH=$WORKSPACE/llvm-install/usr/lib/llvm-4.0/lib/cmake" \
-                            $WORKSPACE/mozart2
-                    """
-                    sh 'make dist VERBOSE=1 -j4'
-                }
-
-                archiveArtifacts 'build/mozart2-*-Source.zip'
-
-                sh 'ls -1 | grep -v llvm-download | xargs rm -rf'
+		sh 'docker run hello-world'
             }
         }
 
