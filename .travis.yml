@@ -13,5 +13,7 @@ matrix:
     - script:
         - echo "script 2"
         - cat test-before.txt
-stage: before_script
-stage: script
+jobs:
+  include:
+    - stage: before_script
+    - stage: script
