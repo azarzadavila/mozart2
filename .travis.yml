@@ -2,10 +2,10 @@ language: generic
 dist: trusty
 sudo: false
 env: [ "V=4.0", "PREFIX=/usr/lib/llvm-4.0/lib/cmake", "BIN=/usr/lib/llvm-4.0/bin" ]
-addons:
-apt:
-  sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-4.0" ]
-    packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-4.0", "libclang-4.0-dev", "llvm-4.0-dev", "clang-format-4.0", "clang-tidy-4.0" ]
+  addons:
+    apt:
+      sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-4.0" ]
+      packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-4.0", "libclang-4.0-dev", "llvm-4.0-dev", "clang-format-4.0", "clang-tidy-4.0" ]
 jobs:
   include:
     - stage: compiling and checking sources
