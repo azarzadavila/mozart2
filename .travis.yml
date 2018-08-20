@@ -1,30 +1,6 @@
 language: generic
 dist: trusty
 sudo: false
-matrix:
-  include:
-    # Versions before 3.8 are not included nor whitelisted
-
-    # Broken (uses ubuntu's version, not llvm one. {LLVM,Clang}Config.cmake are beyond redemption
-    #- env: [ "V=3.8", "PREFIX=/usr/lib/llvm-3.8" ]
-    #  addons:
-    #    apt:
-    #      sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-3.8" ]
-    #      packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-3.8", "libclang-3.8-dev", "llvm-3.8-dev" ]
-
-    # Broken: Unknown relocation 0x2a (llvm-3.9 known to be bugged on travis)
-    #- env: [ "V=3.9", "PREFIX=/usr/lib/llvm-3.9/lib/cmake" ]
-    #  addons:
-    #    apt:
-    #      sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-3.9" ]
-    #      packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-3.9", "libclang-3.9-dev", "llvm-3.9-dev" ]
-
-    # Works, with heavy fixing (see below)
-    - env: [ "V=4.0", "PREFIX=/usr/lib/llvm-4.0/lib/cmake", "BIN=/usr/lib/llvm-4.0/bin" ]
-      addons:
-        apt:
-          sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-4.0" ]
-          packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-4.0", "libclang-4.0-dev", "llvm-4.0-dev", "clang-format-4.0", "clang-tidy-4.0" ]
 
 before_script:
   - apt list --installed
