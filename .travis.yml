@@ -7,13 +7,8 @@ matrix:
         - echo "1" > test-before.txt
     - before_script:
         - echo "2" > test-before.txt
-    - script:
-        - echo "script 1"
-        - cat test-before.txt
-    - script:
-        - echo "script 2"
-        - cat test-before.txt
 jobs:
   include:
-    - stage: before_script
     - stage: script
+    - script:
+      - cat test-before.txt
