@@ -3,15 +3,17 @@ dist: trusty
 sudo: false
 matrix:
   include:
-    - before_script:
-      - echo "1" > test-before.txt
-    - script:
-      - before_script
-      - echo "script 1"
-      - cat test-before.txt
-    - before_script:
-      - echo "2" > test-before.txt
-    - script:
-      - before_script
-      - echo "script 2"
-      - cat test-before.txt
+    - script1:
+      - before_script:
+        - echo "1" > test-before.txt
+      - script:
+        - before_script
+        - echo "script 1"
+        - cat test-before.txt
+    - script2:
+      - before_script:
+        - echo "2" > test-before.txt
+      - script:
+        - before_script
+        - echo "script 2"
+        - cat test-before.txt
