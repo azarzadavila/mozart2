@@ -8,6 +8,22 @@ apt:
     packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-4.0", "libclang-4.0-dev", "llvm-4.0-dev", "clang-format-4.0", "clang-tidy-4.0" ]
 jobs:
   include:
+    - stage: compiling and checking sources
+      before_script:
+        - apt list --installed
+        - env
+        # Fix clang cmake dirs
+        - if [ $V == 3.9 ]; then  sudo -E ln -sn /usr/share/llvm-3.9/cmake /usr/lib/llvm-3.9/lib/cmake/clang;     fi
+
+        - if [ $V == 4.0 ]; then  sudo -E ln -sn /usr/share/llvm-4.0/cmake /usr/lib/llvm-4.0/lib/cmake/clang;     fi
+        - if [ $V == 4.0 ]; then  sudo -E ln -sn /usr/share/llvm-4.0/cmake /usr/lib/llvm-4.0/lib/cmake/clang-4.0; fi
+        - if [ $V == 4.0 ]; then  sudo -E ln -s  /usr/bin/*                /usr/lib/llvm-4.0/bin || true;         fi
+      script:
+        - export SOURCES=$(pwd) && mkdir ../build && cd ../build
+        - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
+        - make dist VERBOSE=1
+        - make VERBOSE=1
+
     - stage: compiling with pre-generated sources
       before_script:
         - apt list --installed
