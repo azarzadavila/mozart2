@@ -9,6 +9,8 @@ matrix:
         - echo "2" > test-before.txt
 jobs:
   include:
+    - before_script:
+       - echo "3" > test-before.txt
     - stage: script
     - script:
       - cat test-before.txt
