@@ -15,4 +15,6 @@ matrix:
       - script:
         - echo "script 2"
         - cat test-before.txt
-stage: custom
+jobs:
+  include:
+    - stage: custom
