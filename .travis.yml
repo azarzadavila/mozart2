@@ -15,4 +15,4 @@ matrix:
       - script:
         - echo "script 2"
         - cat test-before.txt
-custom:
+stage: custom
