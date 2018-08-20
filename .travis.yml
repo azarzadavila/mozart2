@@ -17,4 +17,5 @@ matrix:
         - cat test-before.txt
 jobs:
   include:
-    - stage: custom
+    - stage: before_script
+    - stage: script
