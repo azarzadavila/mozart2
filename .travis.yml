@@ -30,8 +30,8 @@ jobs:
         - cd ..
         - pwd
         - ls -l build/vm/boostenv/generated
-        - diff pre-sources/boostenv build/vm/boostenv/generated
-        - diff pre-sources/vm build/vm/vm/generated
+        - diff pre-sources/boostenv build/vm/boostenv/main/generated
+        - diff pre-sources/vm build/vm/vm/main/generated
 
     - stage: compiling with pre-generated sources
       before_script:
