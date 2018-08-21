@@ -28,7 +28,6 @@ jobs:
 #       - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX -DMOZART_CACHED_BUILD=OFF $SOURCES
 #       - make dist VERBOSE=1
 #       - make VERBOSE=1
-        - cd ..
         - pwd
         - diff pre-sources/boostenv vm/boostenv/cached
         - diff pre-sources/vm vm/vm/cached
