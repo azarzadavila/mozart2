@@ -16,22 +16,12 @@ jobs:
         - if [ $V == 4.0 ]; then  sudo -E ln -sn /usr/share/llvm-4.0/cmake /usr/lib/llvm-4.0/lib/cmake/clang-4.0; fi
         - if [ $V == 4.0 ]; then  sudo -E ln -s  /usr/bin/*                /usr/lib/llvm-4.0/bin || true;         fi
       script:
-        - ls -l
-        - pwd
-        - mkdir ../pre-sources
-        - mkdir ../pre-sources/boostenv
-        - mkdir ../pre-sources/vm
-        - mv vm/boostenv/cached/* ../pre-sources/boostenv
-        - mv vm/vm/cached/* ../pre-sources/vm
         - export SOURCES=$(pwd) && mkdir ../build && cd ../build
         - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX -DMOZART_CACHED_BUILD=OFF $SOURCES
         - make gensources genboostsources VERBOSE=1
-        - ls -l
         - cd ..
-        - pwd
-        - ls -l build/vm/boostenv/generated
-        - diff pre-sources/boostenv build/vm/boostenv/main/generated
-        - diff pre-sources/vm build/vm/vm/main/generated
+        - diff -U3 -r mozart2/vm/boostenv/main/cached build/vm/boostenv/main/generated
+        - diff -U3 -r mozart2/vm/vm/main/cached build/vm/vm/main/generated
 
     - stage: compiling with pre-generated sources
       before_script:
