@@ -25,7 +25,7 @@ jobs:
         - mv vm/vm/cached/* ../pre-sources/vm
         - export SOURCES=$(pwd) && mkdir ../build && cd ../build
         - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX -DMOZART_CACHED_BUILD=OFF $SOURCES
-        - make gensources VERBOSE=1
+        - make gensources genboostsources VERBOSE=1
         - ls -l
         - cd ..
         - pwd
@@ -42,7 +42,7 @@ jobs:
       script:
         - export SOURCES=$(pwd) && mkdir ../build && cd ../build
         - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
-        - make dist VERBOSE=1
+        - make gensources genboostsources VERBOSE=1
         - make VERBOSE=1
       deploy:
         provider: releases
