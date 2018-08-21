@@ -1,20 +1,20 @@
 language: generic
 dist: trusty
 sudo: false
-#env:
-#  - [ "V=4.0", "PREFIX=/usr/lib/llvm-4.0/lib/cmake", "BIN=/usr/lib/llvm-4.0/bin" ]
-#addons:
-#  apt:
-#    sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-4.0" ]
-#    packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-4.0", "libclang-4.0-dev", "llvm-4.0-dev", "clang-format-4.0", "clang-tidy-4.0" ]
+env:
+  - [ "V=4.0", "PREFIX=/usr/lib/llvm-4.0/lib/cmake", "BIN=/usr/lib/llvm-4.0/bin" ]
+addons:
+  apt:
+    sources: [ "ubuntu-toolchain-r-test", "llvm-toolchain-trusty-4.0" ]
+    packages: [ "libboost-all-dev", "tcl-dev", "tk-dev", "emacs", "clang-4.0", "libclang-4.0-dev", "llvm-4.0-dev", "clang-format-4.0", "clang-tidy-4.0" ]
 jobs:
   include:
     - stage: compiling and checking sources
-#     before_script:
-#       # Fix clang cmake dirs
-#       - if [ $V == 4.0 ]; then  sudo -E ln -sn /usr/share/llvm-4.0/cmake /usr/lib/llvm-4.0/lib/cmake/clang;     fi
-#       - if [ $V == 4.0 ]; then  sudo -E ln -sn /usr/share/llvm-4.0/cmake /usr/lib/llvm-4.0/lib/cmake/clang-4.0; fi
-#       - if [ $V == 4.0 ]; then  sudo -E ln -s  /usr/bin/*                /usr/lib/llvm-4.0/bin || true;         fi
+     before_script:
+       # Fix clang cmake dirs
+       - if [ $V == 4.0 ]; then  sudo -E ln -sn /usr/share/llvm-4.0/cmake /usr/lib/llvm-4.0/lib/cmake/clang;     fi
+       - if [ $V == 4.0 ]; then  sudo -E ln -sn /usr/share/llvm-4.0/cmake /usr/lib/llvm-4.0/lib/cmake/clang-4.0; fi
+       - if [ $V == 4.0 ]; then  sudo -E ln -s  /usr/bin/*                /usr/lib/llvm-4.0/bin || true;         fi
       script:
         - ls -l
         - pwd
