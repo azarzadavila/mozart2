@@ -18,10 +18,12 @@ jobs:
       script:
         - export SOURCES=$(pwd) && mkdir ../build && cd ../build
         - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX -DMOZART_CACHED_BUILD=OFF $SOURCES
-        - make gensources genboostsources VERBOSE=1
+        - make -B gensources genboostsources VERBOSE=1
         - cd ..
-        - diff -U3 -r mozart2/vm/boostenv/main/cached build/vm/boostenv/main/generated
-        - diff -U3 -r mozart2/vm/vm/main/cached build/vm/vm/main/generated
+        - diff -q -r mozart2/vm/boostenv/main/cached build/vm/boostenv/main/generated
+        - diff -Npur mozart2/vm/boostenv/main/cached build/vm/boostenv/main/generated
+        - diff -q -r mozart2/vm/vm/main/cached build/vm/vm/main/generated
+        - diff -Npur mozart2/vm/vm/main/cached build/vm/vm/main/generated
 
     - stage: compiling with pre-generated sources
       before_script:
