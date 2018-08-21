@@ -13,7 +13,7 @@ configure_file(
 # Generated sources
 
 set(GENERATED_SOURCES_CACHED_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../cached/)
-set(GENERATED_SOURCES_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated/)
+set(GENERATED_SOURCES_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/../generated/)
 
 find_program(clang_bin clang++)
 
