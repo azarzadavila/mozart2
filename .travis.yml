@@ -21,12 +21,11 @@ jobs:
         - mkdir ../pre-sources
         - mkdir ../pre-sources/boostenv
         - mkdir ../pre-sources/vm
-        - mv vm/boostenv/cached/* pre-sources/boostenv
-        - mv vm/vm/cached/* pre-sources/vm
+        - mv vm/boostenv/cached/* ../pre-sources/boostenv
+        - mv vm/vm/cached/* ../pre-sources/vm
         - export SOURCES=$(pwd) && mkdir ../build && cd ../build
-#       - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX -DMOZART_CACHED_BUILD=OFF $SOURCES
-#       - make dist VERBOSE=1
-#       - make VERBOSE=1
+        - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX -DMOZART_CACHED_BUILD=OFF $SOURCES
+        - make gensources VERBOSE=1
         - ls -l
         - cd ..
         - pwd
