@@ -59,6 +59,8 @@ jobs:
       os: osx
       before_script:
         - brew install tcl-tk boost emacs
+        - brew update
+        - brew jdk
       script:
         - javac -version
         - export SOURCES=$(pwd) && mkdir ../build && cd ../build
