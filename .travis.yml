@@ -64,7 +64,7 @@ jobs:
         - export SOURCES=$(pwd) && mkdir ../build && cd ../build
         - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False $SOURCES
         - make dist VERBOSE=1
-        - travis_wait 30 make VERBOSE=1
+        - travis_wait 75 make VERBOSE=1
         - make check
       deploy:
         provider: releases
