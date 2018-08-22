@@ -59,7 +59,7 @@ jobs:
       os: osx
       osx_image: xcode9.3
       before_script:
-        - brew install tcl-tk boost emacs
+        - brew install tcl-tk boost@1.57 emacs
       script:
         - javac -version
         - export SOURCES=$(pwd) && mkdir ../build && cd ../build
