@@ -57,6 +57,7 @@ jobs:
           secure: GxwttdinweSfTeSkWu3aSp//AGT/ew4iyEUaLxh8nDeVRpAHEPBtMhgF25zoP6JLfhlEAOW7+5Gmomk1a/k+VQQWbFbod3jSSUIH/4gafEN7MVgy3Ma1NEWqViSC7IH/DDIhMzHAttznDOA2nWzoV1nyDpUydM8wvs3VK2N2wEI=
     - stage: compiling with pre-generated sources
       os: osx
+      osx_image: xcode9.3
       before_script:
         - brew install tcl-tk boost@1.57 emacs
       script:
