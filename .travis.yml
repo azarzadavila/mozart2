@@ -61,7 +61,7 @@ jobs:
         - brew install tcl-tk boost emacs
       script:
         - export SOURCES=$(pwd) && mkdir ../build && cd ../build
-        - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False -DCMAKE_PROGRAM_PATH=$BIN -DCMAKE_PREFIX_PATH=$PREFIX $SOURCES
+        - cmake -DCMAKE_BUILD_TYPE=Release -DMOZART_BOOST_USE_STATIC_LIBS=False $SOURCES
         - make dist VERBOSE=1
         - make VERBOSE=1
         - make check
